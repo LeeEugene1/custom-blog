@@ -3,6 +3,7 @@ import Layout, { siteTitle } from '../components/Layout';
 import utilStyles from '../styles/utils.module.css';
 // import { getSortedPostsData } from '../lib/posts';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 //[SSG]
 // export async function getStaticProps() {
@@ -27,7 +28,8 @@ export async function getStaticProps() {
 }
 
 export default function Home({ allPostsData }) {
-  //[CSR]
+  //[CSR]:Private, user-specific pages where SEO is not relevant
+
   // const [allPostsData, setAllPostsData] = useState([]);
   // useEffect(() => {
   //   fetch('/api/post')
@@ -55,7 +57,7 @@ export default function Home({ allPostsData }) {
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
-              {title}
+              <Link href={`/posts/${id}`}>{title}</Link>
               <br />
               {id}
               <br />
