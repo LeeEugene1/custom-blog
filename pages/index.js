@@ -16,7 +16,8 @@ import Date from '../components/date';
 //   };
 // }
 
-export async function getStaticProps() {
+//참고: serverSide에서는 api routes를 사용하지않는다.
+export async function getServerSideProps() {
   const { allPostsData } = await fetch('http://localhost:3000/api/post').then(
     (res) => res.json(),
   );
