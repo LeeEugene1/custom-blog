@@ -2,6 +2,8 @@ import React from 'react';
 import Head from 'next/head';
 import Layout from '../../components/Layout';
 import { getAllPostIds, getPostData } from '../../lib/posts';
+import Date from '../../components/date';
+import utilStyles from '../../styles/utils.module.css';
 
 export default function Page({ postData }) {
   // const router = useRouter();
@@ -11,13 +13,13 @@ export default function Page({ postData }) {
       <Head>
         <title>{postData.id}</title>
       </Head>
-      {/* <h1>{router.query.slug}</h1> */}
-      {postData.title}
-      <br />
-      {postData.id}
-      <br />
-      {postData.date}
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <article>
+        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+        <div className={utilStyles.lightText}>
+          <Date dateString={postData.date} />
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      </article>
     </Layout>
   );
 }
