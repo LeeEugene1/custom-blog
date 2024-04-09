@@ -1,33 +1,34 @@
 import Head from 'next/head';
 import Layout, { siteTitle } from '../components/Layout';
 import utilStyles from '../styles/utils.module.css';
-// import { getSortedPostsData } from '../lib/posts';
+import { getSortedPostsData } from '../lib/posts';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Date from '../components/date';
 
 //[SSG]
-// export async function getStaticProps() {
-//   const allPostsData = getSortedPostsData();
-//   return {
-//     props: {
-//       allPostsData,
-//     },
-//   };
-// }
-
-//참고: serverSide에서는 api routes를 사용하지않는다.
-export async function getServerSideProps() {
-  const { allPostsData } = await fetch('http://localhost:3000/api/post').then(
-    (res) => res.json(),
-  );
-
+export async function getStaticProps() {
+  const allPostsData = await getSortedPostsData();
+  console.log(allPostsData);
   return {
     props: {
       allPostsData,
     },
   };
 }
+
+//참고: serverSide에서는 api routes를 사용하지않는다.
+// export async function getServerSideProps() {
+//   const { allPostsData } = await fetch('http://localhost:3000/api/post').then(
+//     (res) => res.json(),
+//   );
+
+//   return {
+//     props: {
+//       allPostsData,
+//     },
+//   };
+// }
 
 export default function Home({ allPostsData }) {
   //[CSR]:Private, user-specific pages where SEO is not relevant

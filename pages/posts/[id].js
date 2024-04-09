@@ -30,11 +30,7 @@ export async function getStaticProps({ params }) {
 export default function Page({ postData }) {
   const router = useRouter();
   if (router.isFallback) {
-    return (
-      <div>
-        Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...Loading...
-      </div>
-    );
+    return <div>Loading...</div>;
   }
   return (
     <Layout>
