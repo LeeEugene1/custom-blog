@@ -1,7 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Layout from '../../components/Layout';
+import Link from 'next/link';
 
 export default function Write() {
+  const [showLink, setShowLink] = useState(false);
   const idRef = useRef();
   const titleRef = useRef();
   const contentRef = useRef();
@@ -26,9 +28,15 @@ export default function Write() {
         .then((data) => {
           if (data.message) {
             alert(data.message);
+            setShowLink(true);
+          }
+          if (data.error) {
+            throw new Error(data.error);
           }
         })
-        .catch((error) => alert('Error:', error));
+        .catch((error) => {
+          alert(error.message);
+        });
     }
   };
   return (
@@ -55,6 +63,9 @@ export default function Write() {
         <br />
         <input type="submit" value="create" />
       </form>
+      {showLink && (
+        <Link href={`/posts/${idRef.current.value}`}>View article</Link>
+      )}
     </Layout>
   );
 }
